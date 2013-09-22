@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Hello</title>
+</head>
+
+<body>
+
+
+<form action="/calfinal/hello.html" method="post">
+{% if person_name %}
+<input type="text" name="num1" value = "{{person_name}}" readonly/>
+{% else %}
+<input type="text" name="num1" value = "0" readonly/>
+{% endif %}
+<br/>
+				<input type='submit' name="1" value = "1" />
+				<input type='submit' name="2" value = "2" />
+				<input type='submit' name="3" value = "3" /><br/>
+				<input type='submit' name="4" value = "4" />
+				<input type='submit' name="5" value = "5" />
+				<input type='submit' name="6" value = "6" /><br/>
+				<input type='submit' name="7" value = "7" />
+				<input type='submit' name="8" value = "8" />
+				<input type='submit' name="9" value = "9" /><br/>
+				<input type='submit' name="0" value = "0" /><br/>
+				<input type='submit' name="+" value = "+" />
+				<input type='submit' name="-" value = "-" />
+				<input type='submit' name="/" value = "/" />
+				<input type='submit' name="x" value = "x" /><input type='submit' name="=" value = "=" /><br/>
+				<input type='submit' name="clear" value = "CLEAR " />
+                
+  {% csrf_token %}
+</form>
+
+</body>
+</html>
+
