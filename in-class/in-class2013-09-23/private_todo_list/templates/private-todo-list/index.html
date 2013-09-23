@@ -1,0 +1,28 @@
+{% extends "private-todo-list/generic_base.html" %}
+
+{% block title %}This is the index{% endblock %}
+
+
+
+{% block content %}
+<p>
+Current todo list:
+<ol>
+{% for item in items %}
+  <li> <a href="{% url 'delete' item.id %}">X</a> {{item}}
+{% endfor %}
+</ol>
+</p>
+<form action="{% url 'add' %}" method="post">
+  Item to add: <input type="text" name="item">
+               <input type="submit" text="Add item">
+  {% csrf_token %}
+</form>
+
+<p>
+<a href="{% url 'logout' %}">Logout</a>
+</p>
+{% endblock content %}
+
+
+
