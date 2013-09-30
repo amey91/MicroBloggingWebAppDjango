@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Address Book</title>
+</head>
+
+<body>
+<p>
+<a href="{% url 'add' %}">Add an address book entry</a>
+</p>
+
+<p>
+Your address book entries:
+<ul>
+{% for entry in entries %}
+  <li> <a href="{% url 'edit' entry.id %}">{{entry}}</a>
+{% endfor %}
+</ul>
+</p>
+
+<p>
+<a href="{% url 'logout' %}">Logout</a>
+</p>
+
+</body>
+</html>
+
