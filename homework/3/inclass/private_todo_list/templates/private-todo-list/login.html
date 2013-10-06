@@ -1,0 +1,27 @@
+{% extends "private-todo-list/generic_base.html" %}
+
+{%block title%}Private Todo List -- Login{%endblock title%}
+
+{% block content %}
+<p>
+Log in to see your private todo list:
+</p>
+<form method="post" action="{% url 'django.contrib.auth.views.login' %}">
+<table>
+<tr>
+    <td>{{ form.username.label_tag }}</td>
+    <td>{{ form.username }}</td>
+</tr>
+<tr>
+    <td>{{ form.password.label_tag }}</td>
+    <td>{{ form.password }}</td>
+</tr>
+</table>
+
+<input type="submit" value="Login" />
+<a href="{% url 'register' %}">Register</a>
+<input type="hidden" name="next" value="{{ next }}" />
+{% csrf_token %}
+</form>
+{% endblock content %}
+

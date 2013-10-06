@@ -1,0 +1,47 @@
+{% extends "grumblr/main_template.html" %}	  
+{%block title%}Find Grumblrs{%endblock title%}	  
+	
+{%block jumbo%}
+
+ <div class="jumbotron">
+      <div class="container">
+        <h1><div class="grumblr">GRUMBLR: find grumblrs</div></h1>
+		 <div class="col-lg-4">
+<form method="post" action="/grumblr/creategrumbl">
+<input type="textarea" class="input-amey" name="grumbl" placeholder="Create a Grumbl"><br/><input type="submit" class="btn-amey" value="Create!"/>
+{% csrf_token %}
+</form>
+
+
+		 </div>	
+		 
+		 <div class="col-lg-4">
+		 <form method="post" action="/grumblr/searchgrumblrs">
+<input type="textarea" class="input-amey" name="searchgrumbl" placeholder="Search Grumbls"><br/><input type="submit" class="btn-amey" value="Search!"/>
+{% csrf_token %}
+</form>
+		 </div></div>	</div>	
+{% endblock jumbo%}
+
+{%block bodyblock%}
+<div class="col-lg-4"><img src="/static/images/twit.jpg" width="300" height ="400"></div>
+{% for error in errors %}
+{{error}}
+{% endfor%}
+<br/>
+Please give Username of the user you want to block:<br/>
+<form method="post" action="/grumblr/blockuser" >
+<input type="textarea" class="input-amey" name="newuser" placeholder="username"><br/>
+<input type="submit" class="btn-amey" value="Block User"/>
+{% csrf_token %}
+</form>
+
+<div class="col-lg-4 fancytext_big">
+Blocked users:<br/>
+{%for item in peopleihaveblocked %}
+<a href="/grumblr/profile/{{item.username}}"><button type="button" class="btn btn-sm btn-danger">
+{{item.id}}&nbsp {{item}}</button></a><br/>{%endfor%}
+
+</div>
+
+{%endblock bodyblock%}

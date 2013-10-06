@@ -1,0 +1,75 @@
+{% extends "grumblr/main_template.html" %}
+{%block title%}MY Grumbls{%endblock title%}
+{%block bodyblock%}
+	  <div class="row">
+          {% for item in items %}
+        <div class="col-lg-6">
+          <div class="fancytext_big"><p>{{item.grumbl}} </p></div>
+        	<div class="row">
+        	<div class="col-lg-8">zjcbkasn</div><br/><br/>
+        	</div>
+        	<br/>
+        	<div class="row">
+        	<div class="col-lg-4">asdkjasjd</div><br/>
+        	</div>
+        	
+        	<div class="row">
+        	<div class="col-lg-4">
+        	<form action="/grumblr/add_comment/{{item.id}}/" method="post">
+        	<input type="text" name="commenttext" placeholder="Press Enter & Comment"/>
+        	{% csrf_token%}
+        	</form>
+        	</div>
+        	</div>
+        	<br/><br/>
+ 		
+		
+		    
+      <div>
+        <p></p>
+        <p>
+          <i class="icon-user"></i> by <a href="#">{{item.user}}</a>
+           
+          
+          | <i class="icon-comment"></i> <a href="#">3 Comments</a>
+          | <i class="icon-share"></i> <a href="#">39 Shares</a>
+          |<a href="#"><button type="button" class=" btn-sm btn-danger">Dislike</button></a>
+           <br/><i class="icon-calendar"></i> {{item.datetime}} 
+        </p>
+      </div>
+      
+		
+        </div>
+{% endfor %}
+      
+      
+  
+ 
+
+    
+
+</div>
+      
+      
+      
+{%endblock bodyblock%}
+
+{%block jumbo%}
+	    <div class="jumbotron">
+      <div class="container">
+        <h1><div class="grumblr">GRUMBLR <1>{{asd}} <2>  {{var}} <3>{{comments}}</div></h1>
+		<div class="col-lg-8">
+		<a href="/grumblr/mygrumblrs"><button class="btn-amey ">My Grumbls</button></a>
+		<a href="/grumblr/allgrumblrs"><button class="btn-amey ">All Grumbls</button></a>
+		<a href="/grumblr/"><button class="btn-amey ">Create Grumbls</button></a>
+		
+		
+		</div>
+		 </div>
+		 
+	<div class="col-lg-6"></div>
+        
+      </div>
+    </div>
+    
+    {%endblock jumbo%}

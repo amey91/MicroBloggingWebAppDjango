@@ -1,0 +1,42 @@
+document.getElementById()
+
+.firstChild
+
+documnet.getlementsbytagname
+
+x=documnet.getlementsbytagname("form")[0]
+
+x.setAttribute("action",google.com)
+
+console.log("hi")
+print(hi) ...prints page
+
+window.setTimeout(func_name, timelag_in_msec)
+
+window.setinterval()
+
+window.clearWindow()
+
+window.onload() = func()  ... func=zero arg functioon
+
+
+
+
+
+child1
+ReferenceError: child1 is not defined
+list=documnet.createElement("ol")
+ReferenceError: documnet is not defined
+list=document.createElement("ol")
+<ol>?</ol>?
+child1=document.createElement("li")
+<li>?</li>?
+child1.appendChild(document.createElement("a").setAttribute("href","google.com"))
+NotFoundError: An attempt was made to reference a Node in a context where it does not exist.
+t=document.createTextNode("add tiem")
+"add tiem"
+list.appendChild(t)
+"add tiem"
+documnet.body.appendChild(list)
+ReferenceError: documnet is not defined
+document.body.appendChild(list)

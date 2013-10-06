@@ -1,0 +1,40 @@
+
+  Dislikes of grumbls.
+  Email address confirmation when registering a new user.
+  A user may set (by uploading) her own profile picture.
+
+
+ Comments on grumbls.
+  Dislikes of grumbls.
+  User following of other users.
+  User blocking of other users.
+  Email address confirmation when registering a new user.
+  A user may set (by uploading) her own profile picture.
+
+  
+  	
+class MyBlock(models.Model):
+	theblocked=models.ManyToManyField(User)
+	theblocker=models.ManyToManyField(User)
+	blockkey=models.CharField(default="default")
+	datetime=models.DateTimeField(auto_now_add='true')
+	
+	def __unicode__(self):
+		return self.blockkey
+	
+
+	
+class MyDislike(models.Model):
+	comment=models.ForeignKey(MyComment)
+	user=models.ForeignKey(User)
+	datetime=models.DateTimeField(auto_now_add='true')
+	
+	
+class Comment(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    author = models.CharField(max_length=60)  --> user
+    body = models.TextField()					-->content
+    post = models.ForeignKey(Post)				-->grumblid
+
+    def __unicode__(self):
+        return unicode("%s: %s" % (self.post, self.body[:60]))

@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %} A Private Todo List {% endblock title %}</title>
+</head>
+{%block body%}
+{% block errors %}
+{% for error in errors %}
+<p style="color:red">
+{{error}}
+</p>
+{% endfor %}
+{% endblock errors %}
+
+
+{% block content %}
+{% endblock content %}
+
+
+{%endblock body%}
+</html>
+

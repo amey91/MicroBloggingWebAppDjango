@@ -1,0 +1,78 @@
+{% extends "grumblr/main_template.html" %}
+{%block title%}MY Grumbls{%endblock title%}
+{%block bodyblock%}
+
+	  <div class="row"><div class="col-lg-4"></div>
+          
+        
+        
+        
+          
+        <div class="col-lg-8">
+          <div class="fancytext1">Grumbl:</div>
+          <p>{{grumblr1}} </p>
+           
+		  	
+		  <div class="col-lg-6">
+          <div class="fancytext1">Comments:</div>
+        	{% for item in comments%}
+        	<div class="row">
+        	<div class="col-lg-8">{{item}}</div> - by <a href="/grumblr/profile/{{item.user}}">{{item.user}}</a>
+        	</div>
+        	{% endfor %}
+        	</div>
+        	<br/>
+        	<div class="row">
+        	</div>
+        	
+        	<div class="row">
+        	<div class="col-lg-8">
+        	<form action="/grumblr/add_comment/{{grumblr1.id}}/" method="post">
+        	<input type="text" name="commenttext" placeholder="Press Enter & Comment" size=80/>
+        	{% csrf_token%}
+        	</form>
+        	</div>
+        	</div>
+        	<br/><br/>
+ 		
+		
+		    
+      <div>
+        <p></p>
+        <p>
+          <i class="icon-user"></i>Original post by <a href="/grumblr/profile/{{grumblr1.user}}">{{grumblr1.user}}</a>
+           
+          
+          | <i class="icon-comment"></i> {{commentcount}} Comments
+          |<a href="#"><button type="button" class=" btn-sm btn-danger">Dislike</button></a>
+           <br/><i class="icon-calendar"></i> {{item.datetime}} 
+        </p>
+      </div>
+        </div>
+        
+        {{grumblr.datetime}}
+        
+        </div>
+
+
+{%endblock bodyblock%}
+
+{%block jumbo%}
+	    <div class="jumbotron">
+      <div class="container">
+        <h1><div class="grumblr">GRUMBLR: comments</div></h1>
+		<div class="col-lg-8">
+		<a href="/grumblr/mygrumblrs"><button class="btn-amey ">My Grumbls</button></a>
+		<a href="/grumblr/allgrumblrs"><button class="btn-amey ">All Grumbls</button></a>
+		<a href="/grumblr/"><button class="btn-amey ">Create Grumbls</button></a>
+		
+		
+		</div>
+		 </div>
+		 
+	<div class="col-lg-6"></div>
+        
+      </div>
+    </div>
+    
+    {%endblock jumbo%}

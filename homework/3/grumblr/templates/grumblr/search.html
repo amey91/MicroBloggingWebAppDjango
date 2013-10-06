@@ -1,0 +1,59 @@
+{% extends "grumblr/main_template.html" %}	  
+{%block title%}Home{%endblock title%}	  
+	
+{%block jumbo%}
+
+ <div class="jumbotron">
+      <div class="container">
+        <h1><div class="grumblr">GRUMBLR</div></h1>
+		 <div class="col-lg-4">
+<form method="post" action="/grumblr/creategrumbl">
+<input type="textarea" class="input-amey" name="grumbl" placeholder="Create a Grumbl"><br/><input type="submit" class="btn-amey" value="Create!"/>
+{% csrf_token %}
+</form>
+
+
+		 </div>	
+		 
+		 <div class="col-lg-4">
+		 <form method="post" action="/grumblr/searchgrumblrs">
+<input type="textarea" class="input-amey" name="searchgrumbl" placeholder="Search Grumbls"><br/><input type="submit" class="btn-amey" value="Search!"/>
+{% csrf_token %}
+</form>
+		 </div></div>	</div>	
+{% endblock jumbo%}
+
+{%block bodyblock%}
+
+
+
+  <div class="row"><p style="color: red">
+  	       {% for error in errors %}
+
+{{ error }}
+
+{% endfor %}</p>
+          {% for item in grumbls %}
+        <div class="col-lg-4">
+          <h2> <font class="fancytext_big"> Grumbl:</font></h2>
+          <div class="fancytext1"><p>{{item.grumbl}} </p></div>
+           
+		  <form action="/grumblr/add_comment/{{item.id}}/" method="post">
+		  <input type="text" name="commenttext" placeholder="Press Enter & Comment" size=30/>
+        	{% csrf_token%}<br/>
+        <button type="Submit" value="Comment" class="btn btn-sm btn-primary">Comment</button>
+		<button type="button" class="btn btn-sm btn-danger">Dislike</button><br/>
+		</form>
+		{{item.datetime}}
+        </div>
+{% endfor %}
+      </div>
+
+
+
+
+	  
+
+
+
+{%endblock bodyblock%}
