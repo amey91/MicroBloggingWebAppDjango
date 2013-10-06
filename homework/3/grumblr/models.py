@@ -8,6 +8,7 @@ class Grumblr(models.Model):
 	user=models.ForeignKey(User)
 	grumbl=models.CharField(max_length=250)
 	datetime=models.DateTimeField(auto_now_add='true')
+	dislikecounter=models.IntegerField(default=0)
 		
 
 	def __unicode__(self):
@@ -40,3 +41,21 @@ class Block(models.Model):
 	
 	def __unicode__(self):
 		return self.theblocked.username
+	
+class Dislike(models.Model):
+	datetime=models.DateTimeField(auto_now_add='true')
+	user=models.ForeignKey(User,related_name="dislikeby")
+	grumbl=models.ForeignKey(Grumblr,related_name="dislikedgrumbl")
+	
+	
+	def __unicode__(self):
+		return self.grumbl.user.username
+	
+	
+class DislikeCount(models.Model):
+	grumbl=models.ForeignKey(Grumblr,related_name="grumbldislikeccount")
+	dislikecounter=models.IntegerField(default=0)
+	
+	def __unicode__(self):
+		return self.grumbl.grumbl
+	

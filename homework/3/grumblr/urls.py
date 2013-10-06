@@ -29,6 +29,7 @@ urlpatterns = patterns('',
     url(r'^add_comment/(?P<commentid>\d+)/$', 'grumblr.views.add_comment'),
     url(r'^blockuser', 'grumblr.views.blockuser'),
     url(r'^blockuser/', 'grumblr.views.blockuser'),
+    url(r'^dislike_grumbl/(?P<commentid>\d+)/$', 'grumblr.views.dislikegrumbl'),
 
     
 )

@@ -41,6 +41,7 @@ def creategrumbl(request):
     else:
         new_item = Grumblr(grumbl=request.POST['grumbl'], user=request.user)
         new_item.save()
+        Dislike
         errors.append("Grumbl created successfully!")
     items = Grumblr.objects.filter(user=request.user)
     items=items.order_by('-id')
@@ -84,7 +85,7 @@ def editprofile(request):
     return render(request, 'grumblr/editprofile.html', contextnew)
 
 
-	
+@login_required    	
 def register(request):
     context = {}
 
@@ -138,7 +139,7 @@ def register(request):
 
 def main(request):
     return render(request, 'grumblr/main_template.html', {})
-
+@login_required    
 def searchgrumblrs(request):
     context = {}
     if request.POST['searchgrumbl']:
@@ -152,7 +153,8 @@ def searchgrumblrs(request):
         context['errors'] = "Search Query contained null character."
         return render(request, "grumblr/search.html",context)
     
-    
+
+@login_required
 def editprofilesubmit(request):
     context = {}
     u1 = User.objects.get(username=request.user)
@@ -189,13 +191,13 @@ def editprofilesubmit(request):
 def changepassword(request):
     pass
     
-
+@login_required    
 def follow(request):
     f=Follow.objects.filter(thefollowed=request.user)
     u1 = request.user.username
     return render(request, "grumblr/myfollowers.html", {'followers':f, 'username': u1})
 
-
+@login_required    
 def findgrumblrs(request):
     u1=(Follow.objects.filter(thefollowed=request.user).values_list('thefollower',flat=True))
     u11=(User.objects.all().exclude(id__in = u1))
@@ -203,6 +205,7 @@ def findgrumblrs(request):
     h= Follow.objects.filter(thefollower=request.user)
     return render(request, "grumblr/findgrumblrs.html", {'followers':u11, 'username1': request.user, 'ihavefollowed':h})
 
+@login_required    
 def becomefollower(request):
     cont={}
     cont['errors']=[]
@@ -236,7 +239,7 @@ def becomefollower(request):
     
 #implement django forms here     
     
-
+@login_required    
 def add_comment(request,commentid):
     cont={}
     if request.POST['commenttext']=="":
@@ -268,7 +271,7 @@ def add_comment(request,commentid):
     cont1['comments']=comments  
     return render(request, "grumblr/temp2.html",cont1)
 
-    
+@login_required    
 def blockuser(request): 
     cont={}
     cont['errors']=[]
@@ -298,7 +301,33 @@ def blockuser(request):
     cont['username'] = request.user.username    
     return render(request, "grumblr/blockuser.html",cont)
 
-       
+    
+@login_required
+def dislikegrumbl(request,commentid):
+    cont={}
+    #if request.method=="GET":
+     #   return render(request, "grumblr/temp.html",cont)
+    cont['var']=commentid
+    j=Grumblr.objects.get(id=commentid)
+    u=Dislike.objects.filter(user=request.user).filter(grumbl=commentid)
+    if (Grumblr.objects.filter(id=commentid).count() != 1):
+            cont['errors'].append("Grumbl does not exist")
+    
+    if Dislike.objects.filter(user=request.user).filter(grumbl=commentid).count()>0:
+           return render(request, "grumblr/temp.html",cont)
+       #cont['errors'].append("Already dislied the Grumblr")
+    
+    if 'errors' in cont: 
+        return render(request, "grumblr/temp.html",cont)
+    
+    d=Dislike(grumbl=j, user=request.user)
+    d.save()
+    j.dislikecounter=j.dislikecounter+1
+    j.save()
+    return render(request, "grumblr/temp.html",cont)
 
+  
+    
+    
 def temp2():
     pass

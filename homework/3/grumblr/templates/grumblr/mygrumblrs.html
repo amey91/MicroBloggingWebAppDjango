@@ -11,9 +11,11 @@
 		  <input type="text" name="commenttext" placeholder="Press Enter & Comment" size=30/>
         	{% csrf_token%}<br/>
         <button type="Submit" value="Comment" class="btn btn-sm btn-primary">Comment</button>
-		<button type="button" class="btn btn-sm btn-danger">Dislike</button><br/>
+		<a href="/grumblr/dislike_grumbl/{{item.id}}/">
+		<button type="button" class="btn btn-sm btn-danger">Dislike</button></a><br/>
 		</form>
-		{{item.datetime}}
+		author: <a href="/grumblr/profile/{{item.user}}/">{{item.user}} </a>| Disliked by: {{item.dislikecounter}}
+		 <br/> {{item.datetime}}
         </div>
 {% endfor %}
       </div>
