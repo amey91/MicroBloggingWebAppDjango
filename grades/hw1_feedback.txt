@@ -1,0 +1,9 @@
+ NOTES:
+ - It would be helpful if you try to explain what you did for your homework in readme file. You have to specify the files that are relavant (required for the homework), and which template you used, etc. 
+ - Please have a better structure for your files. Try to submit only the necessary ones
+ - Your edit profile page must be different from view profile page (i.e. must have input fields so that users can modify their profile) (-2)
+
+
+ OVERALL: Great Work!
+
+ GRADES : 48/50
