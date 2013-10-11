@@ -85,7 +85,6 @@ def editprofile(request):
     return render(request, 'grumblr/editprofile.html', contextnew)
 
 
-@login_required    	
 def register(request):
     context = {}
 
