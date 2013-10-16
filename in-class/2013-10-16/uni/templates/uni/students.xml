@@ -1,0 +1,7 @@
+<students>{% for student in students %}
+    <student>
+        <andrew-id>{{student.andrew_id}}</andrew-id>
+        <first-name>{{student.first_name}}</first-name>
+        <last-name>{{student.last_name}}</last-name>
+    </student>
+{% endfor %}</students>
