@@ -116,6 +116,8 @@ INSTALLED_APPS = (
     'private_todo_list',
 )
 
+AUTH_USER_MODEL = 'private_todo_list.User'
+
 # Used by the authentication system for the private-todo-list application.
 # URL to use if the authentication system requires a user to log in.
 LOGIN_URL = '/private-todo-list/login'

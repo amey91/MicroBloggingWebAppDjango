@@ -1,6 +1,7 @@
 from django import forms
 
 from models import User
+from django.contrib.auth import authenticate
 
 # Based loosely on django.contrib.auth.forms.AuthenticationForm
 class AuthenticationForm(forms.Form):
@@ -12,7 +13,7 @@ class AuthenticationForm(forms.Form):
         password = self.cleaned_data.get('password')
 
         if username and password:
-            user = User.authenticate(username=username, password=password)
+            user = authenticate(username=username, password=password)
             if not user:
                 raise forms.ValidationError('Please enter a correct username and password.')
 

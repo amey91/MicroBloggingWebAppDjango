@@ -6,17 +6,17 @@ from django.db import transaction
 from private_todo_list.models import *
 from private_todo_list.forms import *
 
-# The views in this application won't actually work because
-# request.user is not properly set up for this application.
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login as auth_login, authenticate
 
-###@login_required
+@login_required
 def home(request):
     # Sets up list of just the logged-in user's (request.user's) items
     items = Item.objects.filter(user=request.user) 
     return render(request, 'private-todo-list/index.html', {'items' : items})
 
 
-###@login_required
+@login_required
 @transaction.commit_on_success
 def add_item(request):
     errors = []
@@ -33,7 +33,7 @@ def add_item(request):
     return render(request, 'private-todo-list/index.html', context)
     
 
-###@login_required
+@login_required
 @transaction.commit_on_success
 def delete_item(request, id):
     errors = []
@@ -62,9 +62,9 @@ def login(request):
     if not form.is_valid():
         return render(request, 'private-todo-list/login.html', context)
 
-    user = User.authenticate(username=form.cleaned_data['username'], 
-                             password=form.cleaned_data['password'])
-    user.login(request)
+    user = authenticate(username=form.cleaned_data['username'], 
+                        password=form.cleaned_data['password'])
+    auth_login(request, user)
     return redirect(reverse('home'))
 
 
@@ -112,11 +112,13 @@ def register(request):
 
     
     # Creates the new user from the valid form data
-    new_user = User.create_user(username=request.POST['username'], \
-                                password=request.POST['password1'])
+    new_user = User.objects.create_user(username=request.POST['username'], \
+                                        password=request.POST['password1'])
     new_user.save()
 
     # Logs in the new user and redirects to his/her todo list
-    new_user.login(request)
+    new_user = authenticate(username=request.POST['username'],
+                            password=request.POST['password1'])
+    auth_login(request, new_user)
     return redirect(reverse('home'))
     
