@@ -22,7 +22,6 @@ urlpatterns = patterns('',
     url(r'^editprofilesubmit', 'grumblr.views.editprofilesubmit'),
     url(r'^changepassword', 'grumblr.views.changepassword'),
     url(r'^temp', 'grumblr.views.temp'),
-    url(r'^confirm-registration/(?P<username>[a-zA-Z0-9_@\+\-]+)/(?P<token>[a-z0-9\-]+)$', 'grumblr.views.confirm_registration', name='confirm'),
     url(r'^becomefollower/(?P<uname>\w+)/$', 'grumblr.views.becomefollower1'),
     url(r'^follow', 'grumblr.views.follow'),
     url(r'^findgrumblrs', 'grumblr.views.findgrumblrs'),
@@ -39,5 +38,8 @@ urlpatterns = patterns('',
     url(r'^ppl_i_follow$', 'grumblr.views.ppl_i_follow'),
     url(r'^changepassword/', 'grumblr.views.changepassword'),
     url(r'^okchangepasswordsubmit', 'grumblr.views.changepasswordsubmit1'),
+    url(r'^forgotpass', 'grumblr.views.forgotpass'),
+    url(r'^iforgotpasssubmit', 'grumblr.views.forgotpass2'),
+    
     
 )

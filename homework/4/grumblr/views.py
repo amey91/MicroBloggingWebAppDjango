@@ -12,8 +12,9 @@ from django.core.urlresolvers import reverse
 from django.core.files import File
 from django.core.mail import send_mail
 from django.contrib.auth.tokens import default_token_generator
-from django.contrib.auth.hashers import * 
-
+from django.contrib.auth.hashers import *
+import string
+import random 
 
 
 @login_required
@@ -253,31 +254,18 @@ def register(request):
     
     token = default_token_generator.make_token(new_user)
     email_body = """
-Welcome to the Simple Address Book.  Please click the link below to
-verify your email address and complete the registration of your account:
-
-  http://%s%s
-""" % (request.get_host(),
-       reverse('confirm', args=(new_user.username, token)))
-    send_mail(subject="Verify your email address",
+Welcome to Grumblr.  Discover a world of Nano Blogging!
+""" 
+    send_mail(subject="Welcome to Grumblr!",
               message=email_body,
-              from_email="register+your+grumblr+account@grumblr.com",
+              from_email="welcome@grumblr.com",
               recipient_list=[new_user.email])
     
     
+      
     
     
     
-    # this creates the profile image into the model
-    
-    new_entry = UserProfile(user=request.user)
-    form = UserProfileForm(request.POST, request.FILES, instance=new_entry)
-    if not form.is_valid():
-                
-                context = {'form':form, 'id':id} 
-                return render(request, 'grumblr/register_errors.html', context)
-    form.save()
-    context['profilepicture'] = UserProfile.objects.get(user=request.user)
     # Logs in the new user and redirects to his/her todo list
     new_user = authenticate(username=request.POST['username'], \
                             password=request.POST['password1'])
@@ -591,20 +579,6 @@ def somebodysgrumbls(request, uname):
     items = items.order_by('-id')
     return render(request, 'grumblr/mygrumblrs.html', {'items' : items})  
     
-    
-
-@transaction.commit_on_success
-def confirm_registration(request, username, token):
-    user = get_object_or_404(User, username=username)
-
-    # Send 404 error if token is invalid
-    if not default_token_generator.check_token(user, token):
-        raise Http404
-
-    # Otherwise token was valid, activate the user.
-    user.is_active = True
-    user.save()
-    return render(request, 'simple-address-book/confirmed.html', {})
 
 
 @login_required
@@ -690,5 +664,48 @@ def changepasswordsubmit1(request):
     return render(request, "grumblr/changepassword.html", context)
     
     
+def forgotpass(request):
+    context={}
+    return render(request, "grumblr/forgotpass.html", context)
+
+    
+def forgotpass2(request):
+    context={}
+    if request.POST['email']=="":
+        context['sent']="true"
+        return render(request, "grumblr/forgotpass.html", context)
+    N=6
+    str = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in range(N))
+    print str
+    try:
+        u=User.objects.get(email=request.POST['email'])
+        u.set_password(str)
+        uname=u.username
+        u.save()
         
+       
+        
+    except:
+        pass
+    
+    email_body = """
+        
+        Welcome to Grumblr.  
+        Please use this string to log in next time:"""  + str +"""
+        your username: """ + uname+""" 
+        And Don't forget to change this password after logging in.
+        Thank you!
+        
+        -Team Grumblr
+        """
+        
+    send_mail(subject="New Password for your Grumblr account",
+              message=email_body,
+              from_email="new+grumblr+password@grumblr.com",
+              recipient_list=[request.POST['email']])
+
+    return render(request, "grumblr/forgotpass.html", context)
+
+
+    
     
