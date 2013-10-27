@@ -1,0 +1,106 @@
+{% extends "grumblr/main_template.html" %}
+{%block title%}Comment on Grumbl{%endblock title%}
+{%block bodyblock%}
+
+
+          
+        
+        
+        
+          
+        <div class="col-lg-8">
+          <div class="fancytext1">Grumbl:</div>
+          <p>{{grumblr1}} </p><br/>
+          <hr/><div>
+          {% if grumblr1.picture %}
+          <img src="/grumblr/photo/{{grumblr1.id}}" 
+alt="{{form.first_name.value}}{{for.last_name.value}}"	class="set_max_width_500">
+          {% endif %}
+           </div>
+		  	
+		  <div class="col-lg-12">
+		  
+		  
+		  
+		  
+		  
+          <div class="fancytext1">Comments:</div>
+        	<ol id="comment-list">
+        			
+        			<table>
+        			
+        			{% for item in comments%}
+        			
+        				<li>
+        				<div style="max-width: 400px; max-height: 150px;	 overflow: default;">       				
+        				 {{item}}</div>
+        				<div style="width: 300px">- <a href="/grumblr/profile/{{item.user}}">Grumbled by  {{item.user}}</a></div> 
+        				
+        			</li>
+        			{% endfor %}
+        			
+        			</table>
+        	</ol>
+        	</div>
+        	<br/>
+        	<div class="row">
+        	</div>
+        	
+        	<div class="row">
+        	<div class="col-lg-8">
+        	<form id="commentform" name="commentform" 
+        	action="/grumblr/add_comment/{{grumblr1.id}}/" method="post" onsubmit="return submitComment()">
+        	<input type="text" name="commenttext" placeholder="Press Enter to Comment via POST" size=80 id="commenttext"/>
+        	
+        	{% csrf_token%}
+        	</form>
+        	
+        	<button class="btn btn-success" id="submitButtonId">Submit via AJAX!</button>
+        	</div>
+        	</div>
+        	<br/><br/>
+ 		
+		
+		    
+      <div>
+        <p></p>
+        <p>
+          <i class="icon-user"></i>Original post by <a href="/grumblr/profile/{{grumblr1.user}}">{{grumblr1.user}}</a>
+           
+          
+          | <i class="icon-comment"></i> {{commentcount}} Comments
+          |<a href="/grumblr/dislike_grumbl/{{grumblr1.id}}"><button type="button" class=" btn-sm btn-danger">Dislike</button></a>
+           <br/><i class="icon-calendar"></i> {{item.datetime}} 
+        </p>
+      </div>
+        </div>
+        
+        {{grumblr.datetime}}
+        
+        </div>
+
+
+{%endblock bodyblock%}
+
+{%block jumbo%}
+	    <div class="jumbotron">
+      <div class="container">
+        <h1><div class="grumblr">GRUMBLR: comments</div></h1>
+		<div class="col-lg-8">
+		<a href="/grumblr/mygrumblrs"><button class="btn-amey ">My Grumbls</button></a>
+		<a href="/grumblr/allgrumblrs"><button class="btn-amey ">All Grumbls</button></a>
+		<a href="/grumblr/"><button class="btn-amey ">Create Grumbls</button></a>
+		
+		
+		</div>
+		 </div>
+		 
+	<div class="col-lg-6"></div>
+        
+      </div>
+    </div>
+    
+    {%endblock jumbo%}
+    {%block ameyjs%}
+    <script src="/static/js/amey.js"></script>
+    {%endblock ameyjs%}

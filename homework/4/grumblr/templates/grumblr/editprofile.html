@@ -1,0 +1,68 @@
+{% extends "grumblr/main_template.html" %}	  
+{%block title%}Profile{%endblock title%}
+{%block jumbo%}
+	    <div class="jumbotron">
+      <div class="container">
+        <h1><div class="grumblr"> GRUMBLR: {{profile.username}}</div></h1>
+		<div class="col-lg-8">
+				
+		</div>
+		 </div>
+		 
+	<div class="col-lg-4"></div>
+        
+      </div>
+    </div>
+    {%endblock jumbo%}
+	{%block bodyblock %}
+     <div class="col-lg-4">
+     {% if profilepicture %}
+          <img class="profile_img" src="/grumblr/get_profile_photo/{{profilepicture.id}}" 
+alt="Profile Picture Not set. Visit Edit Profile dropdown."	width="300px" >
+          
+          {% else %}<img src="/static/images/twit.jpg" width="300" height ="400">
+          {% endif %}
+     </div>
+        <div class="col-lg-8">
+        		<h3>           {% for error in errors %}
+<p style="color: red">
+{{ error }}
+</p>
+{% endfor %}
+
+{%if success %}<div class="grumblr-red">Edit successful!</div>{%endif%} 
+<form enctype="multipart/form-data"  action="/grumblr/editprofilesubmit" method="post" >
+        		<table>
+<tr>
+    <td>Username:</td> <td class="grumblr-theme">{{profile.username}}</td>
+</tr> 
+
+<tr>
+    <td>First Name:</td> <td class="grumblr-green"><input type="text" name="firstname" value="{{profile.first_name}}"></input></td>
+</tr>
+
+<tr>
+    <td>Last Name: </td><td class="grumblr-orange"><input type="text" name="lastname" value="{{profile.last_name}}"></input></td>
+</tr>
+
+<tr>
+    <td>email: </td><td class="grumblr-orange">{{profile.email}}</td>
+</tr>
+<tr>
+<td><label for="id_picture">Picture:</label></td><td><input id="id_picture" name="picture" type="file" /></td>
+</tr>
+<tr>
+    <td><a href="/grumblr/mygrumblrs">Total grumbls:</a> </td><td class = "grumblr-red"> <a href="/grumblr/mygrumblrs" class="grumblr-red">{{grumbls}}</a>
+    {%if not grumbls %}-{%endif%}</td>
+</tr>
+
+<tr>
+	<td><input type="submit" value="Submit Changes" class="btn-amey" method=post" action="grumblr/editprofilesubmit"></td>
+	<td>{%csrf_token%}</td>
+</tr>
+
+</table><input type="text" name="email" value="{{profile.email}}" hidden></input><input type="text" name="username" hidden value="{{profile.username}}"></input></form></h3></div><div>
+
+
+         
+{%endblock bodyblock%}

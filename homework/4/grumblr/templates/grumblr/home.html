@@ -1,0 +1,48 @@
+{% extends "grumblr/main_template.html" %}	  
+{%block title%}Home{%endblock title%}	  
+	
+{%block jumbo%}
+
+ <div class="jumbotron">
+      <div class="container">
+        <h1><div class="grumblr">GRUMBLR - <font style="size:10px">Welcome!</font></div></h1>
+		 <div class="col-lg-4">
+		 
+<form enctype="multipart/form-data"  method="post" action="/grumblr/creategrumbl">
+<input type="textarea" class="input-amey" name="grumbl" placeholder="Create a Grumbl">
+<br/>
+<label for="id_picture">Picture:</label><input id="id_picture" name="picture" type="file" />
+<input type="submit" class="btn-amey" value="Create!"/>
+
+{% csrf_token %}
+</form>
+
+
+
+		 </div>	
+		 
+		 <div class="col-lg-4">
+		 <form method="post" action="/grumblr/searchgrumblrs">
+<input type="textarea" class="input-amey" name="searchgrumbl" placeholder="Search Grumbls"><br/><input type="submit" class="btn-amey" value="Search!"/>
+{% csrf_token %}
+</form>
+		 </div></div>	</div>	
+{% endblock jumbo%}
+{%block bodyblock %}
+	{% if grumbl_too_long %}Grumbl was too long! Please restrict to 42 characters.{%endif%}
+	{% for item in profile %}
+        <div class="col-lg-4">
+          <h2 class="grumblr">Author: {{item.username}} </h2>
+          <div class="fancytext1"><p>{{item.first_name}}</p></div>
+           
+		  <button type="button" class="btn btn-sm btn-success">Like</button>
+        <button type="button" class="btn btn-sm btn-primary">Share</button>
+        <button type="button" class="btn btn-sm btn-warning">Comment</button>
+		<button type="button" class="btn btn-sm btn-danger">View pic</button><br/>
+		{{item.datetime}}
+        </div>
+{% endfor %}
+{%endblock bodyblock%}
+	
+	
+	

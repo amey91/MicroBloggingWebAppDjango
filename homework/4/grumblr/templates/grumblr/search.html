@@ -1,0 +1,79 @@
+{% extends "grumblr/main_template.html" %}	  
+{%block title%}Home{%endblock title%}	  
+	
+{%block jumbo%}
+
+ <div class="jumbotron">
+      <div class="container">
+        <h1><div class="grumblr">GRUMBLR</div></h1>
+		 <div class="col-lg-4">
+<form enctype="multipart/form-data"  method="post" action="/grumblr/creategrumbl">
+<input type="textarea" class="input-amey" name="grumbl" placeholder="Create a Grumbl">
+
+<label for="id_picture">Picture:</label><input id="id_picture" name="picture" type="file" />
+<input type="submit" class="btn-amey" value="Create!"/>
+
+{% csrf_token %}
+</form>
+
+
+		 </div>	
+		 
+		 <div class="col-lg-4">
+		 <form method="post" action="/grumblr/searchgrumblrs">
+<input type="textarea" class="input-amey" name="searchgrumbl" placeholder="Search Grumbls"><br/><input type="submit" class="btn-amey" value="Search!"/>
+{% csrf_token %}
+</form>
+		 </div></div>	</div>	
+{% endblock jumbo%}
+
+{%block bodyblock%}
+
+
+
+  <div class="row"><p style="color: red">
+<p>  
+{% if errors %}
+Search query contained null characters.
+{% endif %}</p>
+
+<p>
+{% if no_matching_grumbls %}
+No matching grumbls at the moment.
+{% endif %}
+</p>
+
+
+
+          {% for item in grumbls %}
+        <div class="col-lg-4">
+          <h2> <font class="fancytext_big"> Grumbl:</font></h2>
+          <div class="fancytext1"><p>{{item.grumbl}} </p>
+          {% if item.picture %}
+          <img src="photo/{{item.id}}" 
+alt="{{form.first_name.value}}{{for.last_name.value}}"	width="300px" height="200px">
+          {% endif %}
+          
+          </div>
+           
+		  <form action="/grumblr/add_comment/{{item.id}}/" method="post">
+		  <input type="text" name="commenttext" placeholder="Press Enter & Comment" size=30/>
+        	{% csrf_token%}<br/>
+        <button type="Submit" value="Comment" class="btn btn-sm btn-primary">Comment</button>
+		<button type="button" class="btn btn-sm btn-danger">Dislike</button><br/>
+		</form>
+		
+		author: <a href="/grumblr/profile/{{item.user}}/">{{item.user}} </a>| Disliked by: {{item.dislikecounter}}
+		 <br/> {{item.datetime}}
+		 </div>
+{% endfor %}
+      </div>
+
+
+
+
+	  
+
+
+
+{%endblock bodyblock%}

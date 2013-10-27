@@ -1,0 +1,57 @@
+{% extends "grumblr/main_template.html" %}	  
+{%block title%}Profile{%endblock title%}
+{%block jumbo%}
+	    <div class="jumbotron">
+      <div class="container">
+        <h1><div class="grumblr"> GRUMBLR: {{profile.username}}</div></h1>
+		<div class="col-lg-8">
+				
+		</div>
+		 </div>
+		 
+	<div class="col-lg-4"></div>
+        
+      </div>
+    </div>
+    {%endblock jumbo%}
+	{%block bodyblock %}
+     <div class="col-lg-4">
+     {% if profilepicture %}
+          <img class="profile_img" src="/grumblr/get_profile_photo/{{profilepicture.id}}" 
+alt="Profile Picture Not set. Visit Edit Profile dropdown."	width="300px" >
+          
+          {% else %}<img src="/static/images/twit.jpg" width="300" height ="400">
+          {% endif %}
+     </div>
+        <div class="col-lg-8">
+        		<h2> <table>
+<tr>
+    <td>Username: </td> <td class="grumblr-theme">{{profile.username}}</td>
+</tr>
+
+<tr>
+    <td>First Name:</td> <td class="grumblr-green">{{profile.first_name}}</td>
+</tr>
+
+<tr>
+    <td>Last Name: </td><td class="grumblr-orange">{{profile.last_name}}</td>
+</tr>
+
+<tr>
+    <td>email: </td><td class="grumblr-orange">{{profile.email}}</td>
+</tr>
+
+<tr>
+    <td><a href="/grumblr/mygrumblrs"><font size=4px>Total grumbls:</a> </td><td class = "grumblr-red"> <a href="/grumblr/grumblquantity/{{profile.username}}" class="grumblr-red">{{grumbls}}</a></font></td>
+</tr>
+
+<tr>
+    <!--  <td class="btn-success btn"><a href="/grumblr/becomefollower/{{profile.username}}">Follow this user!</a></td><td></td><-->
+</tr>
+
+
+</table></h2></div>
+<div></div> 
+
+         
+{%endblock bodyblock%}

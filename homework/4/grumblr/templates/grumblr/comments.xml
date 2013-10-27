@@ -1,0 +1,8 @@
+<items>
+	{% for item in comments %}
+	<item>
+		<comment>{{item}}</comment>
+		<author>{{item.user}}</author>
+	</item>
+  {% endfor %}
+</items>

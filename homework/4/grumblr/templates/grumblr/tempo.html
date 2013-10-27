@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>Click the button to call a function with arguments</p>
+
+<button onclick="myFunction('Harry Potter','Wizard')">Try it</button>
+
+<script>
+function myFunction(name,job)
+{
+alert("Welcome " + name + ", the " + job);
+}
+
+function submitComment(var1)
+{
+	var pathArray = window.location.pathname.split( '/' );
+	var secondLevelLocation = pathArray[1];
+	alert(pathArray[1]);
+	alert(window.location.pathname);
+	alert(document.URL);
+	
+	if(document.forms["commentform"]["commenttext"].value =="")
+		{
+		alert("Enter some string!");
+		
+		}
+
+	
+	return false;
+
+}
+</script>
+
+
+<form name="commentform" action="/grumblr/add_comment/" method="post" onsubmit="return submitComment(1)">
+        	<input type="text" name="commenttext" placeholder="Press Enter & Comment" size=80/>
+        	
+        	</form>
+
+
+</body>
+</html>

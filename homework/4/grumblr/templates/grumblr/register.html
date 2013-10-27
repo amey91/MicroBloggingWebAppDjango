@@ -1,0 +1,41 @@
+{% extends "grumblr/main_template.html" %}	  
+{%block title%}Register{%endblock title%}
+	{%block jumbo %}
+	
+	
+    <div class="jumbotron">
+      <div class="container">		
+       <h1><div class="grumblr">GRUMBLR</div></h1> 
+		 <div class="col-lg-4"><img src="/static/images/twit.jpg" width="300" height ="400"></div>
+		 <div class="col-lg-4">New User Register:<br/>
+		 <form enctype="multipart/form-data" class="navbar-form navbar-right" action="/grumblr/register" method="post">
+            <div class="form-group">
+              <input type="text" placeholder="First Name" class="form-control" name="firstname">
+            </div>
+            <div class="form-group">
+              <input type="text" placeholder="Last Name" class="form-control" name="lastname">
+            </div>
+            <div class="form-group">
+              <input type="email" placeholder="Email" class="form-control" name="email">
+            </div>
+            <div class="form-group">
+              <input type="text" placeholder="Username" class="form-control" name="username">
+            </div>
+            <div class="form-group">
+              <input type="password" placeholder="Password" class="form-control" name="password1">
+			  <input type="password" placeholder="Password" class="form-control" name="password2">
+			  <label for="id_picture">Profile Picture:</label><input id="id_picture" name="picture" type="file" />
+            </div>
+           
+            <br/>
+            <button type="submit" class="btn btn-success">Register</button>
+            {% csrf_token %}
+          </form>
+          {% for error in errors %}
+<p style="color: red">
+{{ error }}
+</p>
+{% endfor %}
+		 </div>
+	</div></div>
+	{%endblock jumbo%}
