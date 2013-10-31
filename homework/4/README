@@ -12,6 +12,9 @@ eg. amey has password amey
 while meh999 has password meh999
 
 
-There was ambiguity regarding bloccking. My implementation states that the blocked person can see the the grumbls of the one who blocked. But the one who blocked will not see the grumbls of whom he blocked anywhere.
+There was ambiguity regarding blocking. My implementation states that the blocked person can see the the grumbls of the one who blocked. But the one who blocked will not see the grumbls of whom he blocked anywhere.
 
 I used Charlie's class example for ajax and emails.
+
+AJAX is implemented on the comment on grumblr page.
+To access this page, simply cmment on the grumblr or click on "comment" button for any grumblr. You will be redirected to the adding comment page where I have given an option for adding comments by both POST and AJAX call via button push. User data is validated for blank entries.
