@@ -52,7 +52,7 @@ function handleResponse() {
         newItem.innerHTML = "<div style=\"max-width: 400px; max-height: 150px;	 overflow: default;\">" +
         		comment +
         		"</div>" +
-        		"<div style=\"width: 300px\">- <a href=\"/grumblr/profile/\""+author+">" +
+        		"<div style=\"width: 300px\">- <a href=\"/grumblr/profile/{{item.user}}\">" +
         		"Grumbled by  " +
         		author +
         		"</a></div>";
@@ -65,20 +65,10 @@ function handleResponse() {
 
 $("#submitButtonId").click(function() {
 
-
-    var pathArray = window.location.pathname.split( '/' );
-	pathArray[2]="add_comment";
-	
-	var newPathname = "/grumblr";
-	for ( i = 2; i < pathArray.length; i++ ) {
-	  newPathname += "/";
-	  newPathname += pathArray[i];
-	}
-	
 	
     $.ajax({
            type: "POST",
-           url: "/grumblr/add_comment/"+pathArray[3]+"/",
+           url: window.location.pathname,
            data: $("#commentform").serialize(), // serializes the form's elements.
            success: function(data)
            {
@@ -101,6 +91,8 @@ function submitComment()
 	else
 		{return true;}
 	
+	
+
 }	
 
 

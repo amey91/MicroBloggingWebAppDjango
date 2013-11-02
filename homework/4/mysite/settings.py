@@ -4,7 +4,8 @@
 import os
 
 PROJECT_ROOT = os.path.realpath(os.path.dirname(__file__)) + '/'
-
+# python manage.oy dumpdata sample_data.json
+#
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -16,8 +17,8 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'newdb',                      # Or path to database file if using sqlite3.
+        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'grumblr',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': '',
         'PASSWORD': '',
@@ -138,7 +139,8 @@ INSTALLED_APPS = (
      'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
      'django.contrib.admindocs',
-	 'grumblr' 
+	 'grumblr',
+     'moneyclub',
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'

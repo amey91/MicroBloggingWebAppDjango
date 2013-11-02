@@ -9,7 +9,7 @@ function sendRequest() {
     }
     
     var pathArray = window.location.pathname.split( '/' );
-	pathArray[2]="xml_response_for_comments";
+	pathArray[2]="xml_response_for_grumblr_stream";
 	
 	var newPathname = "/grumblr";
 	for ( i = 2; i < pathArray.length; i++ ) {
@@ -30,7 +30,7 @@ function handleResponse() {
     }
 
     // Removes the old to-do list items
-    var list = document.getElementById("comment-list");
+    var list = document.getElementById("refresh_target");
     while (list.hasChildNodes()) {
         list.removeChild(list.firstChild);
     }
@@ -49,13 +49,13 @@ function handleResponse() {
         var newItem = document.createElement("li");
         
         
-        newItem.innerHTML = "<div style=\"max-width: 400px; max-height: 150px;	 overflow: default;\">" +
-        		comment +
-        		"</div>" +
-        		"<div style=\"width: 300px\">- <a href=\"/grumblr/profile/\""+author+">" +
-        		"Grumbled by  " +
-        		author +
-        		"</a></div>";
+        newItem.innerHTML = 
+        	 "Slayer<div class=\"col-lg-4\">  <h2> <font class=\"fancytext_big\"> Grumbl:</font></h2> <div class=\"fancytext1\"><p>"+grumbl+"</p> <img src=\""+picture+"\" alt=\"picture\"	max-width=\"300px\" height=\"200px\">" +
+        	 "</div><a href=\"/grumblr/add_comment_redirect/"+grumblid+"/\"> <button type=\"Submit\" value=\"Comment\" class=\"btn btn-sm btn-primary\">Comment</button></a>" +
+        	 "<a href=\"/grumblr/dislike_grumbl/"+grumblid+"/\"><button type=\"button\" class=\"btn btn-sm btn-danger\">Dislike</button></a><br/>" +
+        	 "author: <a href=\"/grumblr/profile/"+author+"/\">"+author+" </a>| Disliked by:"+dislikecounter+"<br/> "+datetime+"</div>"
+        	 
+        	
         // Adds the todo-list item to the HTML list
         list.appendChild(newItem);
     }
@@ -63,45 +63,6 @@ function handleResponse() {
 
 
 
-$("#submitButtonId").click(function() {
-
-
-    var pathArray = window.location.pathname.split( '/' );
-	pathArray[2]="add_comment";
-	
-	var newPathname = "/grumblr";
-	for ( i = 2; i < pathArray.length; i++ ) {
-	  newPathname += "/";
-	  newPathname += pathArray[i];
-	}
-	
-	
-    $.ajax({
-           type: "POST",
-           url: "/grumblr/add_comment/"+pathArray[3]+"/",
-           data: $("#commentform").serialize(), // serializes the form's elements.
-           success: function(data)
-           {
-               alert("submitted via ajax!");
-        	   sendRequest(); // show response from the php script.
-           }
-         });
-
-    return false; // avoid to execute the actual submit of the form.
-});
-
-
-function submitComment()
-{
-	if(document.forms["commentform"]["commenttext"].value =="")
-		{
-		alert("Enter some string!");
-		return false;
-		}
-	else
-		{return true;}
-	
-}	
 
 
 
