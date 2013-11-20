@@ -1,0 +1,32 @@
+<!-- Examples based on http://bost.ocks.org/mike/bar/ -->
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Bar Graph!</title>
+	<style>
+	.chart div {
+		font: 10px sans-serif;
+		background-color: steelblue;
+		text-align: right;
+		padding: 3px;
+		margin: 1px;
+		color: white;
+	}
+	</style>
+	<script src="/static/d3/d3.v3.min.js"></script>
+	<script>
+		window.onload=function() {
+			var data = [4, 8, 15, 16, 23, 42];	// sample data to use
+			d3.select(".chart")					// selects the div
+			  .selectAll("div")					// these divs don't exist!
+				.data(data)						// bind future divs with data
+			  .enter().append("div")			// for unbound data, create divs
+				.style("width", function(d) { return d * 10 + "px"; })	// function to define width dynamically
+				.text(function(d) { return d; });
+		}
+	</script>
+</head>
+<body>
+	<div class="chart"></div>
+</body>

@@ -1,0 +1,63 @@
+<!-- Example based on http://bl.ocks.org/mbostock/3887193 -->
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>GitHub Graph: Wrath of Khan</title>
+	</style>
+	<script src="/static/d3/d3.v3.min.js"></script>
+	<script>
+		window.onload=function() {
+			var width = 960;
+			var height = 600;
+			var radius = Math.min(width, height) / 2;
+
+			var color = d3.scale.ordinal()	// discrete scale of colors to use
+				.range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+
+			var arc = d3.svg.arc()	// d3 function to make arcs in svg
+				.outerRadius(radius - 10)
+				.innerRadius(radius - 70);
+
+			var pie = d3.layout.pie()	// maps values to angles, like in a pie chart
+				.sort(null)
+				.value(function(d) { return d.contributions; });
+
+			var svg = d3.select(".chart")
+				.attr("width", width)
+				.attr("height", height)
+			  .append("g")
+				.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+			d3.json("/static/jquery.json", function(error, data) {
+
+				data.forEach(function(d) {
+				d.contributions = +d.contributions;
+				});
+
+				var g = svg.selectAll(".arc")
+				  .data(pie(data))
+				.enter().append("g")
+				  .attr("class", "arc");
+
+				g.append("path")
+				  .attr("d", arc)
+				  .style("fill", function(d) { return color(d.data.login); });
+
+				g.append("text")
+				  .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
+				  .attr("dy", ".35em")
+				  .style("text-anchor", "middle")
+				  .text(function(d) {
+						if((d.endAngle - d.startAngle) > 0.1)
+							return d.data.login;
+						else
+							return '';
+					});
+			});
+		}
+	</script>
+</head>
+<body>
+	<svg class="chart"></svg>
+</body>
