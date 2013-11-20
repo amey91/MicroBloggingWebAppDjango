@@ -37,7 +37,8 @@
 
 				var g = svg.selectAll(".arc")
 				  .data(pie(data))
-				.enter().append("g")
+				.enter().append("g") //create arc , bind data to elements 
+				//.exit() release destroy
 				  .attr("class", "arc");
 
 				g.append("path")
