@@ -5,7 +5,6 @@
 
 *.class
 #   Package Files #
-*.jar
 *.war
 *.ear
 
@@ -49,5 +48,3 @@ nosetests.xml
 
 # Mr Developer
 .mr.developer.cfg
-.project
-.pydevproject
